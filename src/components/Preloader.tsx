@@ -28,11 +28,11 @@ const Preloader = () => {
         <motion.div
           className={styles.preloader}
           initial={{ opacity: 1 }}
-          exit={{ 
+          exit={{
             opacity: 0,
             scale: 1.05,
             filter: "blur(12px)",
-            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
           }}
         >
           <div className={styles.center}>
@@ -62,12 +62,12 @@ const Preloader = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}
             >
-              Backend & DevOps Architect
+              Backend & DevOps Engineer
             </motion.p>
           </div>
 
           <div className={styles.progressWrapper}>
-            <motion.div 
+            <motion.div
               className={styles.progressBar}
               initial={{ width: 0 }}
               animate={{ width: `${Math.min(progress, 100)}%` }}
