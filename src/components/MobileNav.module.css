@@ -1,13 +1,13 @@
 .mobileNav {
-  display: none;
+  display: none; /* Hidden on desktop by default */
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
-  padding: 8px 16px;
+  z-index: 900;
+  padding: 6px 16px;
   padding-bottom: env(safe-area-inset-bottom, 8px);
-  background: rgba(3, 0, 20, 0.85);
+  background: rgba(3, 0, 20, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -25,17 +25,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.5);
   padding: 8px 12px;
   border-radius: 12px;
   transition: all 0.3s ease;
+  min-width: 52px;
 }
 
 .navItem:hover,
 .navItem:active {
-  color: var(--accent-primary);
+  color: var(--neon-cyan, #00f5ff);
+  background: rgba(0, 245, 255, 0.06);
 }
 
 .iconWrapper {
@@ -45,12 +47,13 @@
 }
 
 .label {
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: 0.6rem;
+  font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
+/* Only show on mobile screens */
 @media (max-width: 768px) {
   .mobileNav {
     display: block;

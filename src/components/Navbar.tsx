@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './Navbar.module.css';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
 
 const Navbar = () => {
@@ -17,13 +17,26 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
+    { name: 'Home', href: '#' },
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
     { name: 'Experience', href: '#experience' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  const closeMenu = () => setMobileMenuOpen(false);
 
   return (
     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
@@ -40,7 +53,7 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <ul className={styles.navLinks}>
-          {navLinks.map((link, i) => (
+          {navLinks.slice(1).map((link, i) => (
             <motion.li
               key={link.name}
               initial={{ opacity: 0, y: -10 }}
@@ -60,29 +73,62 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Toggle */}
-        <button className={styles.mobileToggle} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X /> : <Menu />}
+        <button
+          className={styles.mobileToggle}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={mobileMenuOpen ? 'close' : 'open'}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+            </motion.div>
+          </AnimatePresence>
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Dark overlay backdrop */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            className={styles.mobileOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={closeMenu}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Slide-in Panel */}
       <motion.div
-        className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.open : ''}`}
+        className={styles.mobileMenu}
         initial={{ x: '100%' }}
         animate={{ x: mobileMenuOpen ? '0%' : '100%' }}
-        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+        transition={{ type: 'spring', damping: 28, stiffness: 220 }}
       >
         <ul>
           {navLinks.map((link) => (
-            <li key={link.name}>
+            <motion.li
+              key={link.name}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: mobileMenuOpen ? 1 : 0, x: mobileMenuOpen ? 0 : 30 }}
+              transition={{ duration: 0.3, delay: mobileMenuOpen ? 0.1 : 0 }}
+            >
               <a
                 href={link.href}
                 className={styles.mobileLink}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={closeMenu}
               >
                 {link.name}
               </a>
-            </li>
+            </motion.li>
           ))}
         </ul>
       </motion.div>
