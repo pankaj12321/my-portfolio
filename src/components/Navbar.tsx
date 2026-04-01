@@ -28,20 +28,20 @@ const Navbar = () => {
   return (
     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={`${styles.container} container`}>
-        <motion.div 
+        <motion.div
           className={styles.logo}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
         >
           <span className={styles.bracket}>&lt;</span>
-          <span className={styles.logoText}>DevOps</span>
+          <span className={styles.logoText}>Software Engineer</span>
           <span className={styles.bracket}>/&gt;</span>
         </motion.div>
 
         {/* Desktop Links */}
         <ul className={styles.navLinks}>
           {navLinks.map((link, i) => (
-            <motion.li 
+            <motion.li
               key={link.name}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -66,7 +66,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <motion.div 
+      <motion.div
         className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.open : ''}`}
         initial={{ x: '100%' }}
         animate={{ x: mobileMenuOpen ? '0%' : '100%' }}
@@ -75,8 +75,8 @@ const Navbar = () => {
         <ul>
           {navLinks.map((link) => (
             <li key={link.name}>
-              <a 
-                href={link.href} 
+              <a
+                href={link.href}
                 className={styles.mobileLink}
                 onClick={() => setMobileMenuOpen(false)}
               >

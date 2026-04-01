@@ -6,30 +6,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Preloader = () => {
   const [loading, setLoading] = useState(true);
-  const [text, setText] = useState('');
-  const [index, setIndex] = useState(0);
-
-  const lines = [
-    '> initializing_node_kernel...',
-    '> pulling_production_images...',
-    '> provisioning_aws_eks_cluster...',
-    '> synchronizing_mongodb_shards...',
-    '> backend_architectures_ready...',
-    '> booting_pankaj_portfolio_v2.0...'
-  ];
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (index < lines.length) {
-      const timer = setTimeout(() => {
-        setText((prev) => prev + lines[index] + '\n');
-        setIndex((prev) => prev + 1);
-      }, 300);
-      return () => clearTimeout(timer);
-    } else {
-      const timer = setTimeout(() => setLoading(false), 800);
-      return () => clearTimeout(timer);
-    }
-  }, [index, lines.length]);
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setLoading(false), 400);
+          return 100;
+        }
+        return prev + Math.random() * 15 + 5;
+      });
+    }, 120);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -37,27 +28,50 @@ const Preloader = () => {
         <motion.div
           className={styles.preloader}
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)", transition: { duration: 0.8, ease: "easeInOut" } }}
+          exit={{ 
+            opacity: 0,
+            scale: 1.05,
+            filter: "blur(12px)",
+            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+          }}
         >
-          <div className={styles.terminal}>
-            <div className={styles.terminalHeader}>
-              <div className={styles.dot} style={{ background: '#7c3aed' }} />
-              <div className={styles.dot} style={{ background: '#10b981' }} />
-              <div className={styles.dot} style={{ background: '#3b82f6' }} />
-              <span className={styles.terminalTitle}>pankaj-architect@dev:~</span>
-            </div>
-            <pre className={styles.content}>
-              {text}
-              <span className={styles.cursor}>_</span>
-            </pre>
+          <div className={styles.center}>
+            <motion.div
+              className={styles.logoMark}
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className={styles.initials}>PK</span>
+              <div className={styles.ring} />
+              <div className={styles.ring2} />
+            </motion.div>
+
+            <motion.p
+              className={styles.name}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              PANKAJ KUMAWAT
+            </motion.p>
+
+            <motion.p
+              className={styles.role}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
+              Backend & DevOps Architect
+            </motion.p>
           </div>
-          
-          <div className={styles.progress}>
+
+          <div className={styles.progressWrapper}>
             <motion.div 
-              className={styles.bar}
+              className={styles.progressBar}
               initial={{ width: 0 }}
-              animate={{ width: `${(index / lines.length) * 100}%` }}
-              transition={{ duration: 0.3 }}
+              animate={{ width: `${Math.min(progress, 100)}%` }}
+              transition={{ duration: 0.15, ease: "linear" }}
             />
           </div>
         </motion.div>
