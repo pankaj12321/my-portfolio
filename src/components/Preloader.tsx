@@ -9,6 +9,12 @@ const Preloader = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    // Force scroll to top on reload/load
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
