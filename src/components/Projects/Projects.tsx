@@ -89,6 +89,7 @@ const Projects = () => {
                   src={p.image} 
                   alt={p.title} 
                   fill 
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className={styles.projectImg}
                 />
                 <div className={styles.categoryBadge}>{p.category}</div>

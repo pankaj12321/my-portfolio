@@ -80,7 +80,7 @@ const Hero = () => {
           >
             <div className={styles.imageFrame}>
               <Image
-                src="/images/personal.png"
+                src="/images/personal.jpg"
                 alt="Pankaj Kumawat"
                 width={500}
                 height={600}

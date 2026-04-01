@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Preloader from "@/components/Preloader";
+import MobileNav from "@/components/MobileNav";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,7 +36,7 @@ export default function RootLayout({
         <Preloader />
         <Navbar />
         <main>{children}</main>
-        {/* Footer could go here later */}
+        <MobileNav />
       </body>
     </html>
   );
