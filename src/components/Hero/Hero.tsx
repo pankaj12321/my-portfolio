@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './Hero.module.css';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import TechBackground from './TechBackground';
@@ -9,16 +9,8 @@ import Image from 'next/image';
 
 const Hero = () => {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
+  // Only subtle vertical parallax — NO opacity fade (caused blank space on mobile)
+  const y1 = useTransform(scrollY, [0, 500], [0, 80]);
 
   return (
     <section className={styles.hero}>
@@ -43,7 +35,7 @@ const Hero = () => {
               </h1>
 
               <p className={styles.description}>
-                I'm <strong>Pankaj Kumawat</strong>, a Backend &amp; DevOps Architect dedicated to building
+                I&apos;m <strong>Pankaj Kumawat</strong>, a Backend &amp; DevOps Architect dedicated to building
                 unbreakable infrastructure and high-performance server logic.
               </p>
 
@@ -79,12 +71,12 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Image — scroll parallax only on desktop */}
+          {/* Image — subtle parallax y only, no opacity fade */}
           <motion.div
             className={styles.imageSide}
-            style={isMobile ? {} : { y: y1, opacity }}
-            initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            style={{ y: y1 }}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className={styles.imageFrame}>
@@ -100,7 +92,7 @@ const Hero = () => {
               <div className={styles.glow} />
             </div>
 
-            {/* Floating Stats — desktop only */}
+            {/* Floating Stats */}
             <motion.div
               className={styles.floatingStat}
               animate={{ y: [0, -10, 0] }}
