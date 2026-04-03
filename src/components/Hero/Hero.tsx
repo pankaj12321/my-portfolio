@@ -35,8 +35,9 @@ const Hero = () => {
               </h1>
 
               <p className={styles.description}>
-                I&apos;m <strong>Pankaj Kumawat</strong>, a Backend &amp; DevOps Architect dedicated to building
-                unbreakable infrastructure and high-performance server logic.
+                I&apos;m <strong>Pankaj Kumawat</strong>, a Backend &amp; DevOps Engineer specializing in designing resilient, secure, and scalable infrastructure,
+                along with high-performance, fault-tolerant server-side systems and efficient
+                deployment pipelines.
               </p>
 
               <div className={styles.ctas}>

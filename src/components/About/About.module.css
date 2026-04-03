@@ -100,6 +100,7 @@
   display: flex;
   gap: 20px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .eduCard:hover {
@@ -145,6 +146,24 @@
   opacity: 0.3;
 }
 
+.viewAction {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--accent-primary);
+  opacity: 1;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.eduCard:hover .viewAction {
+  transform: scale(1.1);
+}
+
 .expertiseMarquee {
   display: flex;
   justify-content: center;
@@ -175,4 +194,158 @@
   .title {
     font-size: 2.5rem;
   }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalContent {
+  background: #050510;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  background: var(--accent-primary);
+  transform: rotate(90deg);
+}
+
+.modalImages {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.modalImages::-webkit-scrollbar {
+  height: 6px;
+}
+.modalImages::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.5);
+  border-radius: 10px;
+}
+
+.modalImageWrapper {
+  position: relative;
+  width: 100%;
+  min-width: 250px;
+  height: 250px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.05);
+}
+
+.modalSingleImage {
+  min-width: 100%;
+}
+
+.modalImg {
+  object-fit: cover;
+}
+
+.modalHeader h3 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+  padding-right: 50px;
+}
+
+.modalHeader p {
+  color: var(--accent-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.modalDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-silver);
+}
+
+.detailItem svg {
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.modalGoals {
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 20px;
+}
+
+.modalGoals h4 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}
+
+.modalGoals ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modalGoals li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--accent-silver);
+  line-height: 1.6;
+}
+
+.modalGoals li::before {
+  content: '→';
+  color: var(--accent-primary);
+  font-weight: bold;
 }
